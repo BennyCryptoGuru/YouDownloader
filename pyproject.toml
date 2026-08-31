@@ -3,6 +3,7 @@ name = "youdownloader"
 version = "0.1.0"
 description = "Local YouTube downloader desktop app with FastAPI, pywebview and vanilla JS."
 requires-python = ">=3.11"
+license = "MIT"
 dependencies = [
     "fastapi>=0.115.0",
     "uvicorn[standard]>=0.30.0",

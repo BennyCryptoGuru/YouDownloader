@@ -177,4 +177,4 @@ Some videos may be unavailable because they are private, region-restricted, age-
 
 ## License
 
-No license has been selected yet. Before publishing this repository publicly or accepting contributions, choose a license that matches how you want others to use the code.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
