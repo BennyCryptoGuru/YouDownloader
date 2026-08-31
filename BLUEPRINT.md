@@ -62,6 +62,12 @@ se z něj nestal jeden velký soubor `app.js`.
 
 - **SQLite** — nejlepší volba pro jednu lokální aplikaci; nevyžaduje server,
   instalaci ani účet.
+- **install.bat + scripts/install.ps1** — jednoduchá Windows instalace pro
+  vývojovou/distribuční verzi z repozitáře: vytvoří `.venv`, nainstaluje
+  závislosti a zkontroluje Node.js, FFmpeg/ffprobe a WebView2.
+- **start.bat + scripts/start.ps1** — dvojklikový start aplikace; pokud už
+  server běží na `127.0.0.1:8765`, otevře existující UI místo spuštění druhé
+  instance.
 - **PyInstaller** — vytvoření samostatného `.exe` balíčku.
 - **Inno Setup** — Windows instalátor, zástupce a odinstalace.
 - **pytest, pytest-asyncio, Playwright, Ruff a mypy** — testy a kontrola kvality.

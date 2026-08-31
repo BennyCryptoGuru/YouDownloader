@@ -52,6 +52,16 @@ git clone https://github.com/BennyCryptoGuru/YouDownloader.git
 cd YouDownloader
 ```
 
+Run the installer:
+
+```cmd
+install.bat
+```
+
+The installer creates `.venv`, installs Python dependencies, prepares runtime folders and checks optional system tools such as Node.js, FFmpeg/FFprobe and WebView2. If FFmpeg is not bundled in `resources/bin/`, the installer tries to install it with `winget`.
+
+You can also install everything manually:
+
 Create and activate a virtual environment:
 
 ```powershell
@@ -81,6 +91,20 @@ resources/bin/
 The app checks bundled binaries first and then falls back to your system `PATH`.
 
 ## Run the app
+
+Recommended on Windows:
+
+```cmd
+start.bat
+```
+
+`start.bat` automatically runs `install.bat` first when `.venv` is missing. By default it starts the pywebview desktop window. If the app is already running on `127.0.0.1:8765`, it opens the existing UI instead of starting a second copy.
+
+Run only the local web server:
+
+```cmd
+start.bat -Server
+```
 
 Run as a local web server:
 
@@ -147,6 +171,13 @@ Check frontend JavaScript syntax:
 node --check frontend/js/app.js
 ```
 
+## Windows helper scripts
+
+- `install.bat` — double-click installer wrapper for `scripts/install.ps1`.
+- `start.bat` — double-click launcher wrapper for `scripts/start.ps1`.
+- `scripts/install.ps1` — creates/repairs `.venv`, installs requirements and checks Node.js, FFmpeg/FFprobe and WebView2.
+- `scripts/start.ps1` — starts the desktop app or server mode and avoids opening duplicate instances when the server is already running.
+
 ## Project structure
 
 ```text
@@ -162,6 +193,7 @@ frontend/
   js/              frontend modules
 resources/
   bin/             optional local FFmpeg/FFprobe binaries
+scripts/           Windows install and start helpers
 tests/             pytest test suite
 ```
 
