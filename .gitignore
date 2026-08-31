@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local runtime data
+data/
+cache/
+logs/
+config/settings.json
+
+# Local binaries. Install FFmpeg separately or place binaries here locally.
+resources/bin/*
+!resources/bin/.gitkeep
+
+# Environment files
+.env
+.env.*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

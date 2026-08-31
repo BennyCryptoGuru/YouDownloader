@@ -1,0 +1,10 @@
+{
+  "defaultDownloadDir": "C:\\Users\\YourName\\Downloads\\YouDownloader",
+  "defaultPreset": "video_mp4",
+  "defaultQuality": "best",
+  "concurrentDownloads": 1,
+  "conflictPolicy": "skip",
+  "theme": "youtube",
+  "language": "en",
+  "openFolderOnComplete": false
+}

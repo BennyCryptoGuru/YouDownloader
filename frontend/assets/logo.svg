@@ -1,0 +1,32 @@
+<svg width="340" height="72" viewBox="0 0 340 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">YouDownloader</title>
+  <desc id="desc">Červené tlačítko play s šipkou pro stahování a název YouDownloader.</desc>
+  <defs>
+    <linearGradient id="red" x1="8" y1="8" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF3358"/>
+      <stop offset=".48" stop-color="#FF0033"/>
+      <stop offset="1" stop-color="#B8001F"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="86" y1="13" x2="322" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#181818"/>
+      <stop offset="1" stop-color="#454545"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="80" height="82" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#FF0033" flood-opacity=".30"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity=".20"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="8" y="10" width="56" height="52" rx="17" fill="url(#red)"/>
+    <path d="M32.5 26.3c0-2.1 2.3-3.4 4.1-2.3l13.9 8.6c1.7 1.1 1.7 3.7 0 4.8L36.6 46c-1.8 1.1-4.1-.2-4.1-2.3V26.3Z" fill="white"/>
+    <path d="M22 23.5h9.7v5.2H22a4.2 4.2 0 0 0-4.2 4.2v5.8A4.2 4.2 0 0 0 22 43h9.7v5.2H22a9.4 9.4 0 0 1-9.4-9.4V33A9.4 9.4 0 0 1 22 23.5Z" fill="white" opacity=".92"/>
+    <path d="M47.3 43.3v-8.8h5.2v8.8h5.3L50 51.8l-7.8-8.5h5.1Z" fill="white"/>
+  </g>
+  <rect x="76" y="10" width="252" height="52" rx="18" fill="white" opacity=".94"/>
+  <text x="84" y="35" fill="url(#ink)" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="900" letter-spacing="-0.8">
+    YouDownloader
+  </text>
+  <text x="86" y="53" fill="#FF0033" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="1.9">
+    VIDEO • AUDIO • PLAYLISTY
+  </text>
+</svg>

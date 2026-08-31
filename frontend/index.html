@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouDownloader</title>
+    <meta name="theme-color" content="#ff0033">
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg?v=20260831-youtube-ui-3">
+    <link rel="stylesheet" href="/static/css/styles.css?v=20260831-percent-progress">
+    <script>
+      window.YD_CONFIG = {
+        token: "%SESSION_TOKEN%",
+        apiBase: "/api/v1"
+      };
+    </script>
+    <script type="module" src="/static/js/app.js?v=20260831-english-default"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar" aria-label="Aplikace" data-i18n-aria-label="appAria">
+        <div class="brand">
+          <img class="brand-logo" src="/static/assets/logo.svg?v=20260831-youtube-ui-3" alt="YouDownloader">
+          <div>
+            <p class="eyebrow">YouDownloader</p>
+            <h1 data-i18n="appHeading">Stahování videí a playlistů</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost-button" id="settingsToggle" type="button" aria-haspopup="dialog">
+            <span data-i18n="settings">Nastavení</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form class="panel input-panel" id="previewForm">
+          <label for="sourceUrl" data-i18n="sourceUrl">Odkaz na YouTube</label>
+          <div class="url-row">
+            <input id="sourceUrl" name="sourceUrl" type="url" autocomplete="off"
+              placeholder="https://www.youtube.com/watch?v=..." data-i18n-placeholder="sourceUrlPlaceholder" required>
+            <button type="button" class="secondary-button" id="pasteButton" data-i18n="paste">Vložit</button>
+            <button type="submit" class="primary-button" id="loadButton" data-i18n="load">Načíst</button>
+          </div>
+
+        </form>
+
+        <section class="panel preview-panel" id="previewPanel" aria-live="polite" hidden>
+          <div class="preview-card" id="previewCard">
+            <img id="thumbnail" alt="" loading="lazy">
+            <div class="preview-details">
+              <div class="meta-row">
+                <span class="badge" id="kindBadge">Video</span>
+                <span id="durationLabel"></span>
+              </div>
+              <h2 id="videoTitle"></h2>
+              <p id="channelLabel"></p>
+              <p id="statsLabel"></p>
+            </div>
+          </div>
+
+          <div class="playlist-list" id="playlistList" hidden>
+            <h3 data-i18n="playlistItems">Položky playlistu</h3>
+            <ol id="playlistItems"></ol>
+          </div>
+
+          <form class="download-options" id="downloadForm" hidden>
+            <div class="form-grid">
+              <label>
+                <span data-i18n="format">Formát</span>
+                <select id="presetSelect" name="preset"></select>
+              </label>
+              <label>
+                <span data-i18n="quality">Kvalita</span>
+                <select id="qualitySelect" name="quality"></select>
+              </label>
+              <label>
+                <span data-i18n="targetFolder">Cílová složka</span>
+                <span class="folder-picker">
+                  <input id="targetDirectory" name="targetDirectory" type="text"
+                    placeholder="Použít výchozí složku" data-i18n-placeholder="targetPlaceholder">
+                  <button class="secondary-button" id="chooseTargetDir" type="button" data-i18n="choose">Vybrat</button>
+                </span>
+              </label>
+            </div>
+            <button class="primary-button" type="submit" data-i18n="addToQueue">Přidat do fronty</button>
+          </form>
+        </section>
+
+        <section class="panel queue-panel">
+          <div class="panel-heading">
+            <h2 data-i18n="queue">Fronta</h2>
+            <button class="ghost-button" id="refreshJobs" type="button" data-i18n="refresh">Obnovit</button>
+          </div>
+          <div class="job-list" id="jobList" aria-live="polite"></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-form" id="settingsForm">
+        <div class="panel-heading">
+          <h2 data-i18n="settings">Nastavení</h2>
+          <button class="icon-button" value="cancel" aria-label="Zavřít" data-i18n-aria-label="close" type="submit">×</button>
+        </div>
+        <label>
+          <span data-i18n="defaultFolder">Výchozí složka</span>
+          <span class="folder-picker">
+            <input id="defaultDownloadDir" name="defaultDownloadDir" type="text" required>
+            <button class="secondary-button" id="chooseDefaultDir" type="button" data-i18n="choose">Vybrat</button>
+          </span>
+        </label>
+        <label>
+          <span data-i18n="defaultFormat">Výchozí formát</span>
+          <select id="defaultPreset" name="defaultPreset"></select>
+        </label>
+        <label>
+          <span data-i18n="defaultQuality">Výchozí kvalita</span>
+          <select id="defaultQuality" name="defaultQuality"></select>
+        </label>
+        <label>
+          <span data-i18n="language">Jazyk</span>
+          <select id="language" name="language"></select>
+        </label>
+        <label>
+          <span data-i18n="theme">Motiv</span>
+          <select id="theme" name="theme"></select>
+        </label>
+        <menu>
+          <button class="secondary-button" value="cancel" data-i18n="cancel">Zrušit</button>
+          <button class="primary-button" id="saveSettings" value="default" data-i18n="save">Uložit</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
