@@ -105,6 +105,31 @@ function Test-WebView2Runtime {
     return $false
 }
 
+function New-DesktopShortcut {
+    $startScript = Join-Path $Root "start.bat"
+    if (-not (Test-Path -LiteralPath $startScript)) {
+        throw "start.bat was not found: $startScript"
+    }
+
+    $shell = New-Object -ComObject WScript.Shell
+    $desktop = [Environment]::GetFolderPath("Desktop")
+    if (-not $desktop) {
+        $desktop = $shell.SpecialFolders.Item("Desktop")
+    }
+    if (-not $desktop -or -not (Test-Path -LiteralPath $desktop)) {
+        throw "Desktop folder could not be found."
+    }
+
+    $shortcutPath = Join-Path $desktop "YouDownloader.lnk"
+    $shortcut = $shell.CreateShortcut($shortcutPath)
+    $shortcut.TargetPath = $startScript
+    $shortcut.WorkingDirectory = $Root
+    $shortcut.Description = "Start YouDownloader"
+    $shortcut.Save()
+
+    Write-Host "Desktop shortcut: $shortcutPath" -ForegroundColor Green
+}
+
 Write-Host "YouDownloader - dependency installation" -ForegroundColor Magenta
 Write-Host "Folder: $Root"
 
@@ -181,6 +206,9 @@ if (Test-WebView2Runtime) {
 }
 
 New-Item -ItemType Directory -Force -Path "data", "cache", "config", "logs", "resources\bin" | Out-Null
+
+Write-Step "Creating desktop shortcut"
+New-DesktopShortcut
 
 Write-Step "Verifying installation"
 & $venvPython -c "import aiosqlite, fastapi, httpx, psutil, uvicorn, webview, yt_dlp; print('Python dependencies are OK.')"

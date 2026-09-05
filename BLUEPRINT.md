@@ -3,7 +3,7 @@
 ## 1. Cíl produktu
 
 YouDownloader bude lokální desktopová aplikace pro Windows 10/11. Uživatel
-vloží odkaz na YouTube video, skladbu nebo playlist. Aplikace odkaz zanalyzuje a
+vloží odkaz na YouTube video, YouTube Shorts, skladbu nebo playlist. Aplikace odkaz zanalyzuje a
 zobrazí náhledový obrázek, název, kanál, délku, datum zveřejnění a dostupné
 výstupní možnosti. Uživatel zvolí například MP4 nebo MP3, kvalitu a spustí
 stahování.
@@ -64,10 +64,13 @@ se z něj nestal jeden velký soubor `app.js`.
   instalaci ani účet.
 - **install.bat + scripts/install.ps1** — jednoduchá Windows instalace pro
   vývojovou/distribuční verzi z repozitáře: vytvoří `.venv`, nainstaluje
-  závislosti a zkontroluje Node.js, FFmpeg/ffprobe a WebView2.
+  závislosti, vytvoří zástupce `YouDownloader` na ploše a zkontroluje Node.js,
+  FFmpeg/ffprobe a WebView2.
 - **start.bat + scripts/start.ps1** — dvojklikový start aplikace; pokud už
   server běží na `127.0.0.1:8765`, otevře existující UI místo spuštění druhé
   instance.
+- **stop.bat + scripts/stop.ps1** — bezpečné ukončení všech relací spuštěných z
+  této složky projektu včetně potomků jako yt-dlp, FFmpeg nebo WebView2.
 - **PyInstaller** — vytvoření samostatného `.exe` balíčku.
 - **Inno Setup** — Windows instalátor, zástupce a odinstalace.
 - **pytest, pytest-asyncio, Playwright, Ruff a mypy** — testy a kontrola kvality.

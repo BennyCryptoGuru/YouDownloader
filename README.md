@@ -6,7 +6,7 @@ YouDownloader is a local desktop-style web app for previewing and downloading pu
 
 ## Features
 
-- Paste a YouTube video or playlist URL and load metadata before downloading.
+- Paste a YouTube video, YouTube Shorts or playlist URL and load metadata before downloading.
 - Show video title, channel, thumbnail, duration, views and playlist items.
 - Choose output preset such as MP4 video, WebM video, MP3 audio, M4A audio or Opus audio.
 - Save a default download folder in persistent settings.
@@ -58,7 +58,7 @@ Run the installer:
 install.bat
 ```
 
-The installer creates `.venv`, installs Python dependencies, prepares runtime folders and checks optional system tools such as Node.js, FFmpeg/FFprobe and WebView2. If FFmpeg is not bundled in `resources/bin/`, the installer tries to install it with `winget`.
+The installer creates `.venv`, installs Python dependencies, prepares runtime folders, creates/updates a `YouDownloader` desktop shortcut pointing to `start.bat`, and checks optional system tools such as Node.js, FFmpeg/FFprobe and WebView2. If FFmpeg is not bundled in `resources/bin/`, the installer tries to install it with `winget`.
 
 You can also install everything manually:
 
@@ -104,6 +104,12 @@ Run only the local web server:
 
 ```cmd
 start.bat -Server
+```
+
+Stop every YouDownloader session started from this project folder:
+
+```cmd
+stop.bat
 ```
 
 Run as a local web server:
@@ -175,8 +181,10 @@ node --check frontend/js/app.js
 
 - `install.bat` — double-click installer wrapper for `scripts/install.ps1`.
 - `start.bat` — double-click launcher wrapper for `scripts/start.ps1`.
-- `scripts/install.ps1` — creates/repairs `.venv`, installs requirements and checks Node.js, FFmpeg/FFprobe and WebView2.
+- `stop.bat` — double-click stop wrapper for `scripts/stop.ps1`.
+- `scripts/install.ps1` — creates/repairs `.venv`, installs requirements, creates/updates the desktop shortcut and checks Node.js, FFmpeg/FFprobe and WebView2.
 - `scripts/start.ps1` — starts the desktop app or server mode and avoids opening duplicate instances when the server is already running.
+- `scripts/stop.ps1` — stops YouDownloader backend/desktop processes and their child processes such as yt-dlp, FFmpeg or WebView2.
 
 ## Project structure
 

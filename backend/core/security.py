@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Annotated
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
@@ -17,6 +18,7 @@ ALLOWED_HOSTS = {
 }
 
 KEEP_QUERY_PARAMS = {"v", "list", "index", "t", "start"}
+YOUTUBE_VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{6,}$")
 
 
 @dataclass(slots=True)
@@ -45,24 +47,50 @@ def normalize_youtube_url(raw_url: str) -> UrlInfo:
         raise AppError("INVALID_URL", "Vlozte platny HTTPS odkaz na YouTube.")
 
     query = dict(parse_qsl(parsed.query, keep_blank_values=False))
-    has_video = bool(query.get("v")) or host == "youtu.be"
+    shorts_video_id = _video_id_from_shorts_path(parsed.path)
+    youtu_be_video_id = _video_id_from_youtu_be_path(parsed.path) if host == "youtu.be" else None
+    has_video = bool(query.get("v")) or bool(shorts_video_id) or bool(youtu_be_video_id)
     has_playlist = bool(query.get("list"))
 
     if not has_video and not has_playlist:
         raise AppError("INVALID_URL", "Odkaz neobsahuje video ani playlist.")
 
+    clean_path = parsed.path
     clean_query = [(key, value) for key, value in parse_qsl(parsed.query) if key in KEEP_QUERY_PARAMS]
+    if shorts_video_id and not query.get("v"):
+        clean_path = "/watch"
+        clean_query = [
+            ("v", shorts_video_id),
+            *[(key, value) for key, value in clean_query if key != "v"],
+        ]
     clean_url = urlunparse(
         (
             parsed.scheme,
             host,
-            parsed.path,
+            clean_path,
             "",
             urlencode(clean_query),
             "",
         )
     )
     return UrlInfo(clean_url, has_video=has_video, has_playlist=has_playlist)
+
+
+def _video_id_from_shorts_path(path: str) -> str | None:
+    parts = [part for part in path.split("/") if part]
+    if len(parts) < 2 or parts[0].lower() != "shorts":
+        return None
+    video_id = parts[1]
+    if YOUTUBE_VIDEO_ID_RE.fullmatch(video_id):
+        return video_id
+    return None
+
+
+def _video_id_from_youtu_be_path(path: str) -> str | None:
+    video_id = path.strip("/").split("/", 1)[0]
+    if YOUTUBE_VIDEO_ID_RE.fullmatch(video_id):
+        return video_id
+    return None
 
 
 def require_token(
